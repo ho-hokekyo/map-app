@@ -1,15 +1,17 @@
 import {v4 as uuidv4} from 'uuid'
 
 export const uploadImg = async (file:File) => {
+  // generate unique file name
   const fileName = uuidv4()
-  console.log("fileName by uuid", fileName)
+
+  // get signed URL for upload to GCS
   const res = await fetch(`/api/uploadImage`, {
     method:"POST",
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({fileName})
-  }) //　
+  }) 
   
   const { url, fields } = await res.json();
   const body = new FormData();
@@ -25,7 +27,7 @@ export const uploadImg = async (file:File) => {
   return fileName
 }
 
-// なぜ二回fetchしているのか? answer: 一回目のfetchでサーバーから署名付きURLを取得し、二回目のfetchでそのURLに対して画像をアップロードしている
+// 一回目のfetchでサーバーから署名付きURLを取得し、二回目のfetchでそのURLに対して画像をアップロードしている
 
 export async function fetchSignedUrlGCS(fileName: string) {
   

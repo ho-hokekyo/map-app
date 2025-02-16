@@ -51,6 +51,7 @@ const options: NextAuthOptions = {
         if (!isCorrectPassword) {
           throw new Error('Incorrect password')
         }
+        console.log("user", user);
 
         return user
       },

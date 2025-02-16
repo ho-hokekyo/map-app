@@ -1,15 +1,40 @@
 'use client';
 
 import React, { useState } from 'react';
-
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const router = useRouter();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log('Email:', email);
         console.log('Password:', password);
+
+        try{
+            await signIn('credentials', {
+                redirect: false,
+                email: email,
+                password,
+              })
+                .then((res) => {
+                  if (res?.error) {
+                    alert(res.error)
+                  }
+                  router.push('/')
+                })
+                .catch((err) => {
+                  console.log(err)
+                })
+            
+        } catch (error) {
+            console.error("An unexpected error happened:", error);
+            setError("An unexpected error happened");
+        }
+
     };
 
     return (

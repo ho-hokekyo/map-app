@@ -15,19 +15,28 @@
         "format": "npx prettier --write ."
     },
     "dependencies": {
+        "@auth/prisma-adapter": "^2.7.4",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
+        "@google-cloud/storage": "^7.15.0",
         "@mui/icons-material": "^6.4.2",
         "@mui/material": "^6.4.2",
+        "@next-auth/prisma-adapter": "^1.0.7",
+        "@prisma/client": "^6.3.0",
+        "@types/bcrypt": "^5.0.2",
+        "bcrypt": "^5.1.1",
         "leaflet": "^1.9.4",
         "next": "15.1.5",
+        "next-auth": "^4.24.11",
+        "prisma": "^6.3.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-leaflet": "^5.0.0",
         "react-modal": "^3.16.3",
         "react-router-dom": "^7.1.5",
         "sass": "^1.85.0",
-        "swiper": "^11.2.3"
+        "swiper": "^11.2.3",
+        "uuid": "^11.0.5"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",
@@ -44,6 +53,11 @@
         "postcss": "^8",
         "prettier": "3.4.2",
         "tailwindcss": "^3.4.1",
+        "ts-node": "^10.9.2",
         "typescript": "^5"
+    },
+    "prisma": {
+        "schema": "prisma/schema.prisma",
+        "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
     }
 }

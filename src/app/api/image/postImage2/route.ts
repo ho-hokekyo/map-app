@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { Storage } from "@google-cloud/storage";
-
+import  {img2img}  from "@/lib/image/img2img";
 export const prerender = false;
 
 
@@ -17,7 +17,6 @@ export async function POST(request: NextRequest) {
         const imageFile = formData.get("file") as File;
         if (!imageFile || typeof imageFile === "string") {
             throw new Error("image file not found");
-
         }
        
 
@@ -25,6 +24,7 @@ export async function POST(request: NextRequest) {
         const bucketName = process.env.BUCKET_NAME ?? '';
         const bucket = storage.bucket(bucketName);
 
+        // generate unique filename 
         const fileName = uuidv4();
 
         const buffer = Buffer.from(await imageFile.arrayBuffer());
@@ -41,15 +41,11 @@ export async function POST(request: NextRequest) {
         })
         console.log("upload filename", fileName)
 
+        // generate image
+        // const generatedUrl = await img2img(imageFile);
         
-
-
-        
-        
-
-
         // generate image and upload to GCS
-        const generatedUrl = "https://images.unsplash.com/photo-1519810755548-39cd217da494?q=80&w=1288&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+        const generatedUrl = "https://oaidalleapiprodscus.blob.core.windows.net/private/org-jmuLTnCHURAEXVY1VByta3oE/user-l4chAGXPSMWW0R0qnGlk3lmI/img-WxhZh8e2DVaL1luBiDJtJJpm.png?st=2025-02-17T13%3A43%3A09Z&se=2025-02-17T15%3A43%3A09Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-02-17T13%3A46%3A05Z&ske=2025-02-18T13%3A46%3A05Z&sks=b&skv=2024-08-04&sig=ktffuniza2uSJhAYlZWNkhzbyLAjZLvqP/Qzzkwdexg%3D";
         const generatedImageResponse = await fetch(generatedUrl, {method: "GET"});
         const generatedImageBlob = await generatedImageResponse.blob();
         const generatedImage = new File([generatedImageBlob], "generatedImage.png", {type: "image/png"});

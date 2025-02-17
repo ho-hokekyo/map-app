@@ -1,6 +1,5 @@
 "use client";
 import { ChangeEvent, FunctionComponent, useState } from 'react';
-import { uploadImg2 } from '@/lib/image';
 
 const FileUploadPage = () =>{
     const [file, setFile] = useState<File | null>(null);    
@@ -35,6 +34,11 @@ const FileUploadPage = () =>{
         setImage(imageUrl);
 
     }
+
+    const handleGenerate = async (file:File) =>{
+        
+
+    }
     
 
     return (
@@ -42,7 +46,7 @@ const FileUploadPage = () =>{
             <div>
                 <input type="file" onChange={handleFileChange} />
                 <button onClick={() => file && handleSubmit(file)}>Submit</button>
-
+                <button onClick={() => file && handleGenerate(file)}>Generate</button>
                 <div>
                     { image ? (
                         <div>

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
+import { img2img } from "@/lib/image/img2img";
 
 export const prerender = false;
 export async function POST(request: NextRequest) {
@@ -44,6 +45,8 @@ export async function POST(request: NextRequest) {
 
 
         // generate image
+        const generatedData = await img2img(imageFile);
+        console.log("generatedData", generatedData);
 
         const generatedUrl = "https://images.unsplash.com/photo-1519810755548-39cd217da494?q=80&w=1288&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
         const generatedImage = await fetch('generatedUrl', {method: "GET"});

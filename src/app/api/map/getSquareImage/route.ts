@@ -6,6 +6,7 @@ export async function POST(request: NextRequest) {
 
     const {minLatitude, maxLatitude, minLongitude, maxLongitude, zoom} = body;
     console.log(minLatitude, maxLatitude, minLongitude, maxLongitude, zoom);
+    // Todo : sort, limit
     try{
         const Images =  await prisma.image.findMany({
             // 緯度経度の範囲を最小値と最大値で指定する

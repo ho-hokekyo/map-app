@@ -3,7 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
 
-  const storage = new Storage()
+  const storage = new Storage({
+    projectId: process.env.PROJECT_ID,
+    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON,
+  })
+  console.log()
   const bucketName = process.env.BUCKET_NAME ?? '';
   const bucket = storage.bucket(bucketName);  
   
@@ -23,7 +27,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(res, { status: 200 });
   }catch(error: unknown){
     if (error instanceof Error){
-      console.error("Failed to get signed url", error.message)
+      console.error(error.message)
       return NextResponse.json({ error: error.message }, { status: 500 });
 
     }else{

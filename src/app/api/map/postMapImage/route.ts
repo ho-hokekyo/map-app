@@ -3,8 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { Storage } from "@google-cloud/storage";
-import  {img2img}  from "@/lib/image/img2img";
-export const prerender = false;
+import  {img2img2}  from "@/lib/image/img2img";
+// export const prerender = false;
+
+import {Image} from "@/schema/modelSchema/ImageSchema";
+import {convertImageToPng} from "@/lib/image/preprocess";
 
 
 export async function POST(request: NextRequest) {
@@ -13,8 +16,14 @@ export async function POST(request: NextRequest) {
         const formData = await request.formData();
         // const body = await request.json();
         // console.log("formData", formData);
+        const latitude = Number(formData.get("latitude"));
+        const longitude = Number(formData.get("longitude"));
+        const title = formData.get("title") as string;
+        console.log("latitude", latitude);
+        console.log("longitude", longitude);
+        console.log("title", title);
 
-        const imageFile = formData.get("file") as File;
+        const imageFile = formData.get("file");
         if (!imageFile || typeof imageFile === "string") {
             throw new Error("image file not found");
         }
@@ -42,13 +51,17 @@ export async function POST(request: NextRequest) {
         console.log("upload filename", fileName)
 
         // generate image
-        // const generatedUrl = await img2img(imageFile);
+        const convertedImageFile = await convertImageToPng(imageFile);
+        // const generatedUrl = await img2img(convertedImageFile);
         
         // generate image and upload to GCS
-        const generatedUrl = "https://oaidalleapiprodscus.blob.core.windows.net/private/org-jmuLTnCHURAEXVY1VByta3oE/user-l4chAGXPSMWW0R0qnGlk3lmI/img-WxhZh8e2DVaL1luBiDJtJJpm.png?st=2025-02-17T13%3A43%3A09Z&se=2025-02-17T15%3A43%3A09Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-02-17T13%3A46%3A05Z&ske=2025-02-18T13%3A46%3A05Z&sks=b&skv=2024-08-04&sig=ktffuniza2uSJhAYlZWNkhzbyLAjZLvqP/Qzzkwdexg%3D";
-        const generatedImageResponse = await fetch(generatedUrl, {method: "GET"});
-        const generatedImageBlob = await generatedImageResponse.blob();
-        const generatedImage = new File([generatedImageBlob], "generatedImage.png", {type: "image/png"});
+        // const generatedUrl = "https://oaidalleapiprodscus.blob.core.windows.net/private/org-jmuLTnCHURAEXVY1VByta3oE/user-l4chAGXPSMWW0R0qnGlk3lmI/img-WxhZh8e2DVaL1luBiDJtJJpm.png?st=2025-02-17T13%3A43%3A09Z&se=2025-02-17T15%3A43%3A09Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-02-17T13%3A46%3A05Z&ske=2025-02-18T13%3A46%3A05Z&sks=b&skv=2024-08-04&sig=ktffuniza2uSJhAYlZWNkhzbyLAjZLvqP/Qzzkwdexg%3D";
+        // const generatedImageResponse = await fetch(generatedUrl, {method: "GET"});
+        // const generatedImageBlob = await generatedImageResponse.blob();
+        // const generatedImage = new File([generatedImageBlob], "generatedImage.png", {type: "image/png"});
+
+        const generatedImage = await img2img2(convertedImageFile);
+
         console.log("generatedImage", generatedImage);
         const bufferGenerated = Buffer.from(await generatedImage.arrayBuffer());
         await new Promise((resolve, reject) => {
@@ -106,11 +119,10 @@ export async function POST(request: NextRequest) {
 
         console.log("user", user);
 
-        const latitude = 10
-        const longitude = 10
+        
 
 
-        const image = await prisma.image.create({
+        const image:Image = await prisma.image.create({
             data:{
                 
                 userId: user.id,
@@ -127,7 +139,7 @@ export async function POST(request: NextRequest) {
         })
         console.log("image(database)", image);
 
-        return NextResponse.json({image}, {status: 200});
+        return NextResponse.json(image, {status: 200});
     }catch(error){
         if (error instanceof Error){
             console.error(error.message);
@@ -138,5 +150,4 @@ export async function POST(request: NextRequest) {
         }
     }
 }
-
 

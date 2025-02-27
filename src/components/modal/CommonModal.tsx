@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import styles from './styles.module.scss';
 import { FC } from 'react';
 import { JSX } from '@emotion/react/jsx-runtime';
+import { CloseIcon } from '@/components/Icon/CloseIcon';
 
 interface CommonModalProps {
     isOpen: boolean;
@@ -23,9 +24,9 @@ export const CommonModal: FC<CommonModalProps> = ({
                 className={`${styles.modal}${' '}${''}`}
                 overlayClassName={styles.overlay}
             >
-                <button onClick={closeModal} className={styles.modalClose} type="button">
-                    閉じる
-                </button>
+                {/* <button onClick={closeModal} className={styles.modalClose} type="button">
+                    <CloseIcon/>
+                </button> */}
                 <div className="modal-content">{elem}</div>
             </Modal>
         </div>

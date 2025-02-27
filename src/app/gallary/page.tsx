@@ -1,9 +1,9 @@
-import Ranking from '@/components/Ranking';
+import Garrally from "@/components/gallary/Garrally";
 
 const RankingPage = () => {
     return (
         <>
-            <Ranking></Ranking>;
+            <Garrally></Garrally>
         </>
     );
 };

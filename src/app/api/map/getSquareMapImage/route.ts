@@ -1,6 +1,8 @@
 import {NextRequest, NextResponse} from 'next/server';
 import prisma from '@/lib/prisma';
 
+import {Image} from '@/schema/modelSchema/ImageSchema';
+import {Favorite} from '@/schema/modelSchema/FavoriteSchema';
 export async function POST(request: NextRequest) {
     const body = await request.json();
 
@@ -19,18 +21,26 @@ export async function POST(request: NextRequest) {
                     gte: minLongitude,
                     lte: maxLongitude,
                 },      
+            
             },
-            select: {
-                id: true,
-                generatedUrl: true,
-                latitude: true,
-                longitude: true,
+            include: {
+                favorites: true,
             }
 
         });
-        console.log(Images);
+        
+        // favoritesの数を取得、配列を消してfavoriteの数を追加
+        const outputImages = Images.map((image: Image & { favorites: Favorite[]}) => {
+            const { favorites, ...rest} = image;
+            return {
+                ...rest,
+                favorite: image.favorites.length,
+            };
+        });
+        console.log(outputImages);
+        // console.log(Images);
 
-        return NextResponse.json(Images, {status: 200});
+        return NextResponse.json(outputImages, {status: 200});
     }catch(error){
         if (error instanceof Error){
             console.error(error.message);

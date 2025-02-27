@@ -10,15 +10,14 @@ export async function POST(request: NextRequest) {
     if (!request.url) {
       return NextResponse.json({ error: 'URL is required' }, { status: 400 });
     }
-    // const urlParam = new URL(request.url).searchParams;
-    // const fileName = urlParam.get('fileName');
-    const fileName = (await request.json()).fileName;
+    const urlParam = new URL(request.url).searchParams;
+    const fileName = urlParam.get('fileName');
     if (!fileName) {
       return NextResponse.json({ error: 'file name is required' }, { status: 400 });
     }
-    // console.log("projectId", process.env.GCS_PROJECT_ID)
-    // console.log("testkey", process.env.TEST_KEY);
-    // console.log("credential", process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+    console.log("projectId", process.env.GCS_PROJECT_ID)
+    console.log("testkey", process.env.TEST_KEY);
+    console.log("credential", process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
     
 
     const storage = new Storage();
@@ -34,7 +33,7 @@ export async function POST(request: NextRequest) {
       const options = {
         version: 'v4',
         action: "read",
-        expires: Date.now() +  7 * 24 * 60 * 60 * 1000, // max 7 days 
+        expires: Date.now() + 1 * 60 * 1000,
       }
       console.log("options", options)
       const [url] = await file.getSignedUrl(options as GetSignedUrlConfig);

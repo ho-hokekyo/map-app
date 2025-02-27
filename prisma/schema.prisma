@@ -8,6 +8,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -52,6 +53,7 @@ model User {
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
   images        Image[]
+  favorites     Favorite[]
 }
 
 
@@ -80,6 +82,21 @@ model Image {
   tag           String
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
+  favorites     Favorite[]
 
   @@index([userId])
+}
+
+
+model Favorite {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  imageId   String
+  image     Image    @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, imageId])
+  @@index([userId])
+  @@index([imageId])
 }

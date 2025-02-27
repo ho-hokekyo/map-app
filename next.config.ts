@@ -1,8 +1,20 @@
-import type { NextConfig } from 'next';
-
+import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-    /* config options here */
-    output: 'standalone',
+  output: 'standalone',
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",  
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      }
+    ],
+  },
+  /* config options here */
 };
 
 export default nextConfig;

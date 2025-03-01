@@ -16,9 +16,9 @@ export async function POST(request: NextRequest) {
     if (!fileName) {
       return NextResponse.json({ error: 'file name is required' }, { status: 400 });
     }
-    console.log("projectId", process.env.GCS_PROJECT_ID)
-    console.log("testkey", process.env.TEST_KEY);
-    console.log("credential", process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+    // console.log("projectId", process.env.GCS_PROJECT_ID)
+    // console.log("testkey", process.env.TEST_KEY);
+    // console.log("credential", process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
     
 
     const storage = new Storage();
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       const options = {
         version: 'v4',
         action: "read",
-        expires: Date.now() + 1 * 60 * 1000,
+        expires: Date.now() +  7 * 24 * 60 * 60 * 1000, // max 7 days 
       }
       console.log("options", options)
       const [url] = await file.getSignedUrl(options as GetSignedUrlConfig);

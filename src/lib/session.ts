@@ -1,6 +1,7 @@
 
-// import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
+import options from "@/lib/options";
 
 
 export const CheckSession = async () => {

@@ -1,76 +1,85 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-const LoginPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log('Email:', email);
-        console.log('Password:', password);
+export default function AuthPage() {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('Email:', email);
+    console.log('Password:', password);
 
-        try{
-            await signIn('credentials', {
-                redirect: false,
-                email: email,
-                password,
-              })
-                .then((res) => {
-                  if (res?.error) {
-                    alert(res.error)
-                  }
-                  router.push('/')
-                })
-                .catch((err) => {
-                  console.log(err)
-                })
-            
-        } catch (error) {
-            console.error("An unexpected error happened:", error);
-            setError("An unexpected error happened");
-        }
+    try{
+        await signIn('credentials', {
+            redirect: false,
+            email: email,
+            password,
+          })
+            .then((res) => {
+              if (res?.error) {
+                alert(res.error)
+              }
+              router.push('/')
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        
+    } catch (error) {
+        console.error("An unexpected error happened:", error);
+        setError("An unexpected error happened");
+    }
 
-    };
+  };
 
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-slate-800">
-            <h1 className="text-3xl font-bold mb-8">Login</h1>
-            <form
-                onSubmit={handleSubmit}
-                className="bg-white p-6 rounded shadow-md w-full max-w-sm"
+  return (
+    <div className="flex h-screen items-center justify-center bg-violet-950">
+        <div className="w-full max-w-md bg-violet-900 p-8 shadow-lg rounded-lg">
+            <h2 className="text-2xl font-bold text-center mb-6 text-gray-100">Login</h2>
+            <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+                <label className="block text-gray-100">Email</label>
+                <input
+                type="email"
+                className="w-full bg-gray-900 text-gray-100 border border-violet-700 rounded p-2 focus:outline-none focus:ring-2 focus:ring-violet-500 placeholder-gray-400"
+                value={email}
+                placeholder="John"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-100">Password</label>
+                <input
+                type="password"
+                className="w-full bg-gray-900 text-gray-100 border border-violet-700 rounded p-2 focus:outline-none focus:ring-2 focus:ring-violet-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
+            <button
+                type="submit"
+                className="w-full bg-violet-700 text-white p-2 rounded hover:bg-violet-600 active:bg-violet-500 active:scale-105" 
             >
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-                </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                    Login
-                </button>
+                Login
+            </button>
             </form>
+            {/* navigation to signUp */}
+            <p className="mt-4 text-center text-gray-100">
+            {"Don't have an account?"}
+            <a
+                href="/register"
+                className="text-blue-500 hover:underline"
+            >
+                Sign Up
+            </a>
+            </p>
         </div>
-    );
-};
-
-export default LoginPage;
+    </div>
+  )
+}

@@ -1,80 +1,84 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-import { useRouter } from 'next/navigation'
-import React from 'react'
-import { signIn } from 'next-auth/react'
+export default function Page() {
 
-const RegisterPage = () => {
-    const router = useRouter()  
+  const [userName, setUserName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const router = useRouter();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(email, password);
 
-    const [email, setEmail] = useState(""); 
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
-    const [error, setError] = useState("");
+    const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+    })
     
 
-    const handleRegister = async () => {
-        try {
+    if (res.ok) {
+        console.log("login response", res.body);
+        router.push("/login");
+    }else{
+        console.log("error", res.body);
+        setError("Invalid credentials");
+    }
+  };
+
+  return (
+    <div className="flex h-screen items-center justify-center bg-violet-950">
+        <div className="w-full max-w-md bg-violet-900 p-8 shadow-lg rounded-lg">
+            <h2 className="text-2xl font-bold text-center mb-6 text-gray-100">Signin</h2>
             
-        
-            const response = await fetch("/api/register",{
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                email: email,
-                name: name,
-                password: password,
-            }),
-        });
-
-            if (response.ok) {
-                signIn();
-                router.push("/");
-            }else{
-                console.log("Failed to sign up");
-            }
-        } catch (error) {
-            console.error("An unexpected error happened:", error);
-            setError("An unexpected error happened");
-        }
-    };
-
-
-    return (
-        <div>
-            <h1>Sign Up</h1>
-            <input
-                className="text-black"
-
+            <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+                <label className="block text-gray-100">Username</label>
+                <input
                 type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <input
-                className="text-black"
-
-                type="text"
-                placeholder="Email"
+                className="w-full bg-gray-900 text-gray-100 border border-violet-700 rounded p-2 focus:outline-none focus:ring-2 focus:ring-violet-500 placeholder-gray-400"
+                value={userName}
+                placeholder="John"
+                onChange={(e) => setUserName(e.target.value)}
+                required
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-100">Email</label>
+                <input
+                type="email"
+                className="w-full bg-gray-900 text-gray-100 border border-violet-700 rounded p-2 focus:outline-none focus:ring-2 focus:ring-violet-500 placeholder-gray-400"
                 value={email}
+                placeholder="John@email.com"
                 onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-                className="text-black"
-
+                required
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-100">Password</label>
+                <input
                 type="password"
-                placeholder="Password"
+                className="w-full bg-gray-900 text-gray-100 border border-violet-700 rounded p-2 focus:outline-none focus:ring-2 focus:ring-violet-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={handleRegister}>Sign Up</button>
-            {error && <p>{error}</p>}
-        </div>
-    )
-}
+                />
+            </div>
+            <button
+                type="submit"
+                className="w-full bg-violet-700 text-white p-2 rounded hover:bg-violet-600 active:bg-violet-500 active:scale-105"
 
-export default RegisterPage;
+            >
+                Register
+            </button>
+            </form>
+            
+        </div>
+    </div>
+  )
+}

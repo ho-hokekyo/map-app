@@ -8,7 +8,7 @@
         "plugin:import/typescript"
     ],
     "scripts": {
-        "dev": "next dev --turbopack",
+        "dev": "npx ts-node --project tsconfig.server.json src/server.ts",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
@@ -31,6 +31,7 @@
         "formidable-serverless": "^1.1.1",
         "framer-motion": "^12.4.7",
         "fs": "^0.0.1-security",
+        "jotai": "^2.12.1",
         "leaflet": "^1.9.4",
         "multer": "^1.4.5-lts.1",
         "next": "15.1.5",
@@ -43,6 +44,8 @@
         "react-modal": "^3.16.3",
         "react-router-dom": "^7.1.5",
         "sass": "^1.85.0",
+        "socket.io": "^4.8.1",
+        "socket.io-client": "^4.8.1",
         "swiper": "^11.2.3",
         "uuid": "^11.0.5"
     },

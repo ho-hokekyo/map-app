@@ -11,8 +11,8 @@ export async function POST(request: Request){
 
     setTimeout(() =>{
         console.log("session", session?.user.id);
-        global.io?.to(session?.user?.id!).emit("success notification") // 
-        global.io?.emit("notification to all user")
+        global.io!.to(session!.user.id!).emit("success notification") // 
+        global.io!.emit("notification to all user")
     }, 1000)
     
     return NextResponse.json({message: "Notification sent"});

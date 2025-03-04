@@ -11,7 +11,7 @@ type ToastProps = {
   duration: number;
   toastType: ToastTypes;
   onClose: () => void;
-  args?: any;
+  // args?: any;
 }
 
 const ToastContext = createContext(({}: {text:string; type?:ToastTypes; duration:number}) => {});

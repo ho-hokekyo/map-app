@@ -1,11 +1,31 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import bcrypt from 'bcrypt'
-import type { NextAuthOptions } from 'next-auth'
+import type { DefaultSession, NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 
 import prismadb from '@/lib/prisma'
+
+declare module "next-auth" {
+
+
+  interface Session extends DefaultSession{
+    user: {
+      id: string
+      role: string
+      email: string
+    }
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string
+    role: string
+  }
+}
+
 
 const options: NextAuthOptions = {
   providers: [
@@ -75,6 +95,7 @@ const options: NextAuthOptions = {
       if (user) {
         token.user = user
         // const u = user as any
+        token.id = user.id
         token.role = "admin" // u.role
       }
       if (account) {
@@ -84,13 +105,16 @@ const options: NextAuthOptions = {
 
       return token
     },
-    session: ({ session, token }) => {
+    session: ({ session, token, user}) => {
       // token.accessToken
+      
       return {
         ...session,
         user: {
           ...session.user,
           role: token.role,
+          id: token.id,
+          
         },
       }
     },

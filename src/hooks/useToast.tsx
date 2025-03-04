@@ -1,10 +1,20 @@
-"use client"
-import React, { useState, useEffect, useContext, createContext } from 'react';
-import { createPortal } from 'react-dom';
+"use client";
+import React, { useState, useEffect, useContext, createContext, use, useRef } from 'react';
+import ReactDOM from 'react-dom'
+import { motion, AnimatePresence } from "framer-motion";
+import { NotificationToast } from '@/components/notification/NotificationToast';
 
 type ToastTypes = "normal" | "error" | "success";
+type ToastProps = {
+  id: number;
+  text: string;
+  duration: number;
+  toastType: ToastTypes;
+  onClose: () => void;
+  args?: any;
+}
 
-const ToastContext = createContext(({}: {text:string; type?:ToastTypes}) => {});
+const ToastContext = createContext(({}: {text:string; type?:ToastTypes; duration:number}) => {});
 ToastContext.displayName = "ToastContext";
 
 export const useToast = () => {
@@ -13,69 +23,66 @@ export const useToast = () => {
 
 
 
+// ToastのContextを提供する
 export const ToastProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const [visible, setVisible] = useState(false);
-    const [toastText, setToastText] = useState("");
-    const [toastType, setToastType] = useState<ToastTypes>("normal");
 
-    const showToast = ({text, type}: {text:string; type?:ToastTypes}) => {
-        setToastText(text);
-        setToastType(type || "normal");
-        setVisible(true);
+    const [toasts, setToasts] = useState<ToastProps[]>([]);
+    const showToast = ({text, toastType, duration=10000}: {text:string; toastType?:ToastTypes; duration:number}) => {
+        const id = Date.now();
+        const onClose = () => {setToasts((prev) => prev.filter((toast) => toast.id !== id))};
+        setToasts((prev) => [...prev, {id, text, toastType: toastType || "normal", duration, onClose: onClose}]);
         setTimeout(() => {
-            setVisible(false);
-        }, 3000);
+            onClose();
+        }, duration);
     }
 
+   
     return (
         <ToastContext.Provider value={showToast}>
             {children}
-            <Toast visible={visible} toastType={toastType}>
-                    {toastText}
-                </Toast>
-            {/* {createPortal(
-                ,
-                document.body
-            )} */}
-        </ToastContext.Provider>
+             
+              <div className="absolute top-0 w-full py-4 space-y-4 mx-auto">
+                <AnimatePresence>
+                  {toasts.map((toast) => (
+                    <Toast key={toast.id} id={toast.id} text={toast.text} duration={toast.duration} toastType={toast.toastType} onClose={toast.onClose}/>
+                  ))}
+                </AnimatePresence>
+              </div>
+        </ToastContext.Provider> 
     )
 }
 
+/* 表示の管理
+
+*/
 
 
-const Toast = ({children, visible, toastType}: {children:React.ReactNode;visible:boolean; toastType:ToastTypes}) => {
-    const [isVisible, setIsVisible] = useState(visible);
 
-    useEffect(() => {
-        console.log("visible", visible);
-        if (visible) {
-            setIsVisible(true);
-          const timer = setTimeout(() => {
-            setIsVisible(false);
-          }, 3000); // 3秒後に非表示
-          return () => clearTimeout(timer);
-        }
-      }, [visible]);
-    
-      if (!isVisible) return null; // 非表示の場合は何も描画しない
-    
-      // トーストタイプに応じたスタイル
-      const getToastStyle = () => {
-        switch (toastType) {
-          case 'success':
-            return 'bg-green-500 text-white';
-          case 'error':
-            return 'bg-red-500 text-white';
-          default:
-            return 'bg-gray-500 text-white';
-        }
-      };
+
+const Toast = ({ id, text, duration, toastType, onClose}:ToastProps) => {
+
+    const getToastStyle = () => {
+      switch (toastType) {
+        case 'success':
+          return 'bg-green-500 text-white';
+        case 'error':
+          return 'bg-red-500 text-white';
+        default:
+          return 'bg-gray-500 text-white';
+      }
+    };
     
       return (
-        <div
-          className={`fixed top-0 left-1/2 transform -translate-x-1/2 p-4 rounded-lg shadow-lg flex justify-center items-center w-auto ${getToastStyle()}`}
-        >
-          <span>{children}</span>
-        </div>
+        <motion.div
+                key={id}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className={`${getToastStyle()}`}
+                layout
+              >
+                <NotificationToast text={text} duration={duration} onClose={onClose}/>
+              </motion.div>
       );
     };

@@ -10,7 +10,7 @@ const socketAtom = atom<Socket | null>(null);
 
 // 接続を確立する関数
 const connectSocket = (userId: string) => {
-    const newSocket = io("http://localhost:3000",{
+    const newSocket = io(process.env.NEXT_PUBLIC_BASE_URL,{
         reconnection: true,
         reconnectionAttempts: 3,
     })
@@ -27,7 +27,7 @@ const connectSocket = (userId: string) => {
 /**
  * サーバーとの通信を管理するためのカスタムフック
  * @param userId ユーザーID
- * @returns {socket: SocketIOClient.Socket | undefined, connect: () => void, disconnect: () => void}
+ * @returns socket: Socket, connectSocket: () => void, disconnectSocket: () => void
  */
 
 export const useSocket = (userId: string) => {

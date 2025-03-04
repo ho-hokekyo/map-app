@@ -6,7 +6,6 @@ import options from "@/lib/options";
 
 export const CheckSession = async () => {
     try{
-
         const session = await getSession();
         return session;
     }catch(e){

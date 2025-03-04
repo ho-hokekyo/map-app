@@ -49,8 +49,15 @@ app.prepare().then(() => {
         })
     })
 
-    server.listen(3000, () => {
-        console.log('listening on 3000');
+    // // 定期的な通知の送信
+    // setInterval(() => {
+    //     io.emit("notification to one user");
+    // }, 3000)
+
+
+
+    server.listen(process.env.NEXT_WEBSOCKET_PORT, () => {
+        console.log(`> Ready on http://localhost:${process.env.NEXT_WEBSOCKET_PORT}`);
     })
     
 })

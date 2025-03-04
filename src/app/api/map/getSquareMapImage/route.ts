@@ -37,8 +37,7 @@ export async function POST(request: NextRequest) {
                 favorite: image.favorites.length,
             };
         });
-        console.log(outputImages);
-        // console.log(Images);
+    
 
         return NextResponse.json(outputImages, {status: 200});
     }catch(error){

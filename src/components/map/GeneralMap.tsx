@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet';
 import { Icon, LatLng, LatLngExpression, LatLngTuple } from 'leaflet';
 import 'leaflet/dist/leaflet.css';

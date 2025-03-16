@@ -1,8 +1,8 @@
 import {NextRequest, NextResponse} from 'next/server';
 import prisma from '@/lib/prisma';
-
 import {Image} from '@/schema/modelSchema/ImageSchema';
 import {Favorite} from '@/schema/modelSchema/FavoriteSchema';
+
 export async function POST(request: NextRequest) {
     const body = await request.json();
 
@@ -37,7 +37,6 @@ export async function POST(request: NextRequest) {
                 favorite: image.favorites.length,
             };
         });
-    
 
         return NextResponse.json(outputImages, {status: 200});
     }catch(error){

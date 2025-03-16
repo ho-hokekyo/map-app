@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
 
         });
         
+        
         // favoritesの数を取得、配列を消してfavoriteの数を追加
         const outputImages = Images.map((image: Image & { favorites: Favorite[]}) => {
             const { favorites, ...rest} = image;

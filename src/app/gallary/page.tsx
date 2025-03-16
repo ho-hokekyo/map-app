@@ -1,6 +1,6 @@
 import Garrally from "@/components/gallary/Garrally";
 
-const RankingPage = () => {
+const GallaryPage = () => {
     return (
         <>
             <Garrally></Garrally>
@@ -8,4 +8,4 @@ const RankingPage = () => {
     );
 };
 
-export default RankingPage;
+export default GallaryPage;

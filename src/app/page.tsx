@@ -1,7 +1,6 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
-import { MapDemo } from '@/components/map/Map';
 export default function Home() {
     const GeneralMap = useMemo(
         () =>
@@ -15,7 +14,6 @@ export default function Home() {
         <>
             <div>
                 <GeneralMap></GeneralMap>
-                {/* <MapDemo></MapDemo> */}
             </div>
         </>
     );

@@ -1,5 +1,5 @@
 {
-    "name": "studicon",
+    "name": "map-app",
     "version": "0.1.0",
     "private": true,
     "extends": [
@@ -8,9 +8,9 @@
         "plugin:import/typescript"
     ],
     "scripts": {
-        "dev": "npx ts-node --project tsconfig.server.json src/server.ts",
+        "dev": "next dev --turbopack",
         "build": "next build",
-        "start": "npx ts-node --project tsconfig.server.json src/server.ts",
+        "start": "next start",
         "lint": "next lint",
         "format": "npx prettier --write ."
     },

@@ -9,7 +9,6 @@ import L from "leaflet";
 
 import {useMapEvents} from 'react-leaflet/hooks';
 import { useGeoLocation } from '@/hooks/useGeoLocation';
-// import './general-map.css';
 import Detail from './Detail';
 import { LocationIcon } from '@/components/Icon/LocationIcon';
 

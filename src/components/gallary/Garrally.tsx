@@ -54,6 +54,7 @@ import Image from "next/image";
                 className="w-full h-auto aspect-square object-cover rounded-md"
                 width={300}
                 height={300}
+                loading="lazy"
               />
               
               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
@@ -83,10 +84,13 @@ import Image from "next/image";
                 exit={{ scale: 0.8 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <img
+                <Image
                   src={selectedImage.generatedUrl}
                   alt="Detail"
                   className="w-full h-auto rounded-md"
+                  width={400}
+                  height={400}
+                  loading="lazy"
                 />
                 <div className="mt-3">
                   <p className="text-gray-700">📍 {selectedImage.latitude}, {selectedImage.longitude}</p>

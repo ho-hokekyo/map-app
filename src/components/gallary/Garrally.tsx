@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-// import { Heart } from "lucide-react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {ImageOutput} from '@/schema/outputTypeSchema/ImageOutputSchema';
 import Image from "next/image";

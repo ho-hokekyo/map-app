@@ -1,8 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-// import { Heart } from "lucide-react";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import {LikeIcon} from '@/components/Icon/LikeIcon';
 import {ImageOutput} from '@/schema/outputTypeSchema/ImageOutputSchema';
 import Image from "next/image";
 
@@ -59,7 +58,7 @@ import Image from "next/image";
               
               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                 <div className="flex items-center text-white text-lg font-semibold">
-                  <FavoriteIcon className="w-6 h-6 mr-2" />
+                  <LikeIcon className="w-6 h-6 mr-2" />
                   {image.favorite}
                 </div>
               </div>

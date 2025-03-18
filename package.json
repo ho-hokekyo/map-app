@@ -1,5 +1,5 @@
 {
-    "name": "studicon",
+    "name": "map-app",
     "version": "0.1.0",
     "private": true,
     "extends": [
@@ -22,11 +22,13 @@
         "@types/bcrypt": "^5.0.2",
         "@types/formidable": "^3.4.5",
         "bcrypt": "^5.1.1",
+        "concurrently": "^9.1.2",
         "form-data": "^4.0.2",
         "formidable": "^3.5.2",
         "formidable-serverless": "^1.1.1",
         "framer-motion": "^12.4.7",
         "fs": "^0.0.1-security",
+        "jotai": "^2.12.1",
         "leaflet": "^1.9.4",
         "multer": "^1.4.5-lts.1",
         "next": "15.1.5",
@@ -38,8 +40,12 @@
         "react-modal": "^3.16.3",
         "react-router-dom": "^7.1.5",
         "sass": "^1.85.0",
+        "socket.io": "^4.8.1",
+        "socket.io-client": "^4.8.1",
         "swiper": "^11.2.3",
-        "uuid": "^11.0.5"
+        "uuid": "^11.0.5",
+        "zod": "^3.24.2",
+        "zod-prisma-types": "^3.2.4"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",

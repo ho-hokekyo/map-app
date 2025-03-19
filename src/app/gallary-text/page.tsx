@@ -34,10 +34,10 @@ export default function Gallery() {
     }, []);
 
   return (
-    <>
+    <div>
       {images.map((image: ImageOutput) => (
-        <div key={image.id}>{image.generatedUrl}</div>
+        <div key={image.id}>{image.id}</div>
       ))}
-    </>
+    </div>
   )
 }

@@ -23,6 +23,8 @@ import Image from "next/image";
             body: JSON.stringify({
               num: 30,
             }),
+            // cacheについて
+           
           })
           .then((res) => res.json())
           .then((data) => {

@@ -67,4 +67,4 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD ["npx", "ts-node", "--project", "tsconfig.server.json", "src/server.ts"]
+CMD ["node", "server.js"]

@@ -19,6 +19,5 @@ export default function CSRPage() {
             </div>
         ))}
       </div>
-    
   );
 }

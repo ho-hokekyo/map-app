@@ -17,6 +17,7 @@ RUN echo $NEXT_PUBLIC_BASE_URL
 # RUN yarn build
 RUN env
 
+
 # Install dependencies based on the preferred package manager
 COPY package.json ./
 COPY package-lock.json ./

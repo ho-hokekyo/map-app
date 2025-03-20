@@ -6,6 +6,16 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+ARG _DATABASE_URL
+ENV DATABASE_URL=$_DATABASE_URL
+
+ARG _NEXT_PUBLIC_BASE_URL
+ENV NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL
+
+RUN echo $DATABASE_URL
+RUN echo $NEXT_PUBLIC_BASE_URL
+# RUN yarn build
+RUN env
 
 # Install dependencies based on the preferred package manager
 COPY package.json ./
@@ -24,16 +34,7 @@ COPY . .
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
-ARG _DATABASE_URL
-ENV DATABASE_URL=$_DATABASE_URL
 
-ARG _NEXT_PUBLIC_BASE_URL
-ENV NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL
-
-RUN echo $DATABASE_URL
-RUN echo $NEXT_PUBLIC_BASE_URL
-# RUN yarn build
-RUN env
 
 RUN yarn prisma generate
 # RUN yarn prisma migrate deploy

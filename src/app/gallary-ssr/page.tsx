@@ -29,7 +29,7 @@ const Page = async () => {
                     className="relative cursor-pointer"
                     // onClick={() => setSelectedImage(image)}
                   >
-                    <Image
+                    <img
                       src={image.generatedUrl}
                       alt="Gallery"
                       className="w-full h-auto aspect-square object-cover rounded-md"

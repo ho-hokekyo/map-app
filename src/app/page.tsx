@@ -2,6 +2,8 @@
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 import { MapDemo } from '@/components/map/Map';
+import { ToastProvider } from "@/hooks/useToast";
+import {NotificationListener} from "@/components/notification/NotificationListener";
 export default function Home() {
     const GeneralMap = useMemo(
         () =>
@@ -14,8 +16,12 @@ export default function Home() {
     return (
         <>
             <div>
+         
+
                 <GeneralMap></GeneralMap>
                 {/* <MapDemo></MapDemo> */}
+       
+
             </div>
         </>
     );

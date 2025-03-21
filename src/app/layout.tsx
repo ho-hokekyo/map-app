@@ -5,6 +5,10 @@ import Header from '@/components/layouts/Header';
 import Footer from '@/components/layouts/Footer';
 import ToGenerate from '@/components/layouts/ToGenerate';
 
+import { ToastProvider } from "@/hooks/useToast";
+import {NotificationListener} from "@/components/notification/NotificationListener";
+import { SessionProviderWrapper } from '@/components/common/SessionProviderWrapper';
+
 const geistSans = Geist({
     variable: '--font-geist-sans',
     subsets: ['latin'],
@@ -29,11 +33,20 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 {/* <Header></Header> */}
+            <ToastProvider>
+
                 {children}
+                <SessionProviderWrapper>
+                <div className="absolute top-0 w-auto mx-auto">
+                    <NotificationListener />
+                </div>
+                </SessionProviderWrapper>
                 
-                <Footer></Footer>
+            <Footer></Footer>
                 <ToGenerate></ToGenerate>
-                
+            </ToastProvider>
+
+               
             </body>
         </html>
     );

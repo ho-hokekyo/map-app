@@ -54,9 +54,7 @@ export async function POST(request: NextRequest) {
         const convertedImageFile = await convertImageToPng(imageFile);
         // const generatedUrl = await img2img(convertedImageFile);
         
-        // generate image and upload to GCS
-        // const generatedUrl = "https://oaidalleapiprodscus.blob.core.windows.net/private/org-jmuLTnCHURAEXVY1VByta3oE/user-l4chAGXPSMWW0R0qnGlk3lmI/img-WxhZh8e2DVaL1luBiDJtJJpm.png?st=2025-02-17T13%3A43%3A09Z&se=2025-02-17T15%3A43%3A09Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-02-17T13%3A46%3A05Z&ske=2025-02-18T13%3A46%3A05Z&sks=b&skv=2024-08-04&sig=ktffuniza2uSJhAYlZWNkhzbyLAjZLvqP/Qzzkwdexg%3D";
-        // const generatedImageResponse = await fetch(generatedUrl, {method: "GET"});
+       
         // const generatedImageBlob = await generatedImageResponse.blob();
         // const generatedImage = new File([generatedImageBlob], "generatedImage.png", {type: "image/png"});
 
@@ -138,6 +136,14 @@ export async function POST(request: NextRequest) {
             }
         })
         console.log("image(database)", image);
+
+        // 処理完了の通知
+        if(!global.io){
+            throw new Error("Custom Server for notification (Socket.io) is not initialized");
+        }
+        global.io.to(session.user.id).emit("success notification");
+        global.io.emit("new post was created", {imageId: image.id});
+        // global.io.emit("new post was created", "arg1");
 
         return NextResponse.json(image, {status: 200});
     }catch(error){

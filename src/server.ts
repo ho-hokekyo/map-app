@@ -8,7 +8,6 @@ declare global {
     var io: Server | undefined;
 }
 
-
 const dev = process.env.NODE_ENV !== "production";
 const app = next({dev, turbo:true});
 const handle = app.getRequestHandler();

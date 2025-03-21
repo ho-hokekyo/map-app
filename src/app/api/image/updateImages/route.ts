@@ -5,11 +5,11 @@ import { Image } from '@/schema/modelSchema/ImageSchema'
 export async function POST(request: NextRequest){
     try{
         // 期限切れurlのアップデート
-        const images: Image = await prisma.image.findMany(); 
+        const images: Image[] = await prisma.image.findMany(); 
         const date = new Date();
         // expirationが現在時刻よりも前の場合、更新する
         const updatedImages = images.map(async (image:Image) => {
-            if(image.expiration > date){
+            if(image.expiration! > date){
                 const fileName = image.fileName;
 
                 // generatedUrlの取得

@@ -5,7 +5,7 @@ import Link from 'next/link';
 const Footer = () => {
     const items = [
         {href: "/", label: "Map"},
-        {href: "/gallary", label: "Gallary"},
+        {href: "/gallery", label: "Gallery"},
         {href: "/other", label: "other"},
     ]
     return (

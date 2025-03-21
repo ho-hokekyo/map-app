@@ -7,7 +7,7 @@ import ToGenerate from '@/components/layouts/ToGenerate';
 
 import { ToastProvider } from "@/hooks/useToast";
 import {NotificationListener} from "@/components/notification/NotificationListener";
-import { SessionProviderWrapper } from '@/components/common/SessionProviderWrapper';
+import { ProviderWrapper } from '@/components/common/ProviderWrapper';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -36,11 +36,11 @@ export default function RootLayout({
             <ToastProvider>
 
                 {children}
-                <SessionProviderWrapper>
-                <div className="absolute top-0 w-auto mx-auto">
-                    <NotificationListener />
-                </div>
-                </SessionProviderWrapper>
+                <ProviderWrapper>
+                    <div className="absolute top-0 w-auto mx-auto">
+                        <NotificationListener />
+                    </div>
+                </ProviderWrapper>
                 
             <Footer></Footer>
                 <ToGenerate></ToGenerate>

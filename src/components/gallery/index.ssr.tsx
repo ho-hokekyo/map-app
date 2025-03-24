@@ -1,4 +1,4 @@
-import { ImageWrapper } from "@/components/gallery/image";
+import { ImageWrapper } from "@/components/gallery/ImageWrapper";
 import { ImageOutput } from "@/schema/outputTypeSchema/ImageOutputSchema";
 import { LikeIcon } from "@/components/Icon/LikeIcon";
 

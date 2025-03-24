@@ -14,10 +14,10 @@ export const fetchImages = async (): Promise<ImageOutput[]> => {
             }),
         })
 
-        // Validation
         const data = await res.json();
+
+        // Validation
         const parsedValue = ImageOutputArraySchema.parse(data);
-        console.log("parse", parsedValue);
 
         return data;
     }catch(error){

@@ -5,7 +5,7 @@ import Header from '@/components/layouts/Header';
 import Footer from '@/components/layouts/Footer';
 import ToGenerate from '@/components/layouts/ToGenerate';
 
-import { ToastProvider } from "@/hooks/useToast";
+
 import {NotificationListener} from "@/components/notification/NotificationListener";
 import { ProviderWrapper } from '@/components/common/ProviderWrapper';
 
@@ -33,7 +33,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 {/* <Header></Header> */}
-            <ToastProvider>
+            
 
                 {children}
                 <ProviderWrapper>
@@ -44,7 +44,7 @@ export default function RootLayout({
                 
             <Footer></Footer>
                 <ToGenerate></ToGenerate>
-            </ToastProvider>
+           
 
                
             </body>

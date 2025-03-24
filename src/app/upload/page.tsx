@@ -3,7 +3,7 @@
 
 // import { useState } from "react";
 // import { useRouter } from "next/router";
-import UploadPage from "@/components/upload/UploadView";
+import UploadPage from "@/components/upload/index";
 
 
 const Page = () => {

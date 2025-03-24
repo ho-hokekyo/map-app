@@ -23,23 +23,23 @@ export async function POST(request: NextRequest) {
                 },      
             
             },
-            include: {
-                favorites: true,
-            }
+            // include: {
+            //     favorites: true,
+            // }
 
         });
         
         // favoritesの数を取得、配列を消してfavoriteの数を追加
-        const outputImages = Images.map((image: Image & { favorites: Favorite[]}) => {
-            const { favorites, ...rest} = image;
-            return {
-                ...rest,
-                favorite: image.favorites.length,
-            };
-        });
+        // const outputImages = Images.map((image: Image & { favorites: Favorite[]}) => {
+        //     const { favorites, ...rest} = image;
+        //     return {
+        //         ...rest,
+        //         favorite: image.favorites.length,
+        //     };
+        // });
     
 
-        return NextResponse.json(outputImages, {status: 200});
+        return NextResponse.json(Images, {status: 200});
     }catch(error){
         if (error instanceof Error){
             console.error(error.message);

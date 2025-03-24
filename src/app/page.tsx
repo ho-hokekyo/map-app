@@ -1,14 +1,12 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
-import { MapDemo } from '@/components/map/Map';
-import { ToastProvider } from "@/hooks/useToast";
-import {NotificationListener} from "@/components/notification/NotificationListener";
+import { AnimatePulseLoadingView } from '@/components/map/Loading';
 export default function Home() {
-    const GeneralMap = useMemo(
+    const Map = useMemo(
         () =>
-            dynamic(() => import('@/components/map/GeneralMap'), {
-                loading: () => <p>map loading...</p>,
+            dynamic(() => import('@/components/map/index'), {
+                loading: () => <AnimatePulseLoadingView />,
                 ssr: false,
             }),
         [],
@@ -16,12 +14,7 @@ export default function Home() {
     return (
         <>
             <div>
-         
-
-                <GeneralMap></GeneralMap>
-                {/* <MapDemo></MapDemo> */}
-       
-
+                <Map></Map>
             </div>
         </>
     );

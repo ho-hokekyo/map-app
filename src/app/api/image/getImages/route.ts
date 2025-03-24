@@ -11,20 +11,19 @@ export async function POST(request: NextRequest) {
 
         const images = await prisma.image.findMany({
             take: num,
-            include:{
-                favorites: true,
-            }
+            // include:{
+            //     favorites: true,
+            // }
         });
-
-        const outputImages = images.map((image: Image & { favorites: Favorite[]}) => {
-            const { favorites, ...rest} = image;
-            return {
-                ...rest,
-                favoriteNum: image.favorites.length,
-            };
-        });
+        // const outputImages = images.map((image: Image & { favorites: Favorite[]}) => {
+        //     const { favorites, ...rest} = image;
+        //     return {
+        //         ...rest,
+        //         favoriteNum: image.favorites.length,
+        //     };
+        // });
         
-        return NextResponse.json(outputImages, {status:200})
+        return NextResponse.json(images, {status:200})
     }catch(error: unknown){
         if (error instanceof Error){
             console.error(error.message);

@@ -39,7 +39,7 @@ const Detail = ({image}: {image: ImageOutput}) => {
                         >
                             <FLike className="mr-2" />
                             {/* <LikeIcon/> */}
-                            {image.favorite}
+                            {/* {image.favorite} */}
                         </button>
                         <button
                             className="px-6 py-2 rounded-full transform transition-transform hover:scale-105 flex items-center"

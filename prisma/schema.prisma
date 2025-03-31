@@ -85,8 +85,8 @@ model Image {
   favorites     Favorite[]
 
   @@index([userId])
-  @@index([latitude, longitude]) // 位置情報の検索を最適化する
-  
+  // @@index([latitude, longitude])  位置情報の検索を最適化する
+
 }
 
 

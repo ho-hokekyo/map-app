@@ -12,7 +12,7 @@ import { ImageOutput } from '@/schema/outputTypeSchema/ImageOutputSchema';
 import { useMapEvents } from 'react-leaflet/hooks';
 import { fetchSquareImages, fetchSelectedImage } from './action';
 
-
+// 地図の動作を定義するコンポーネント
 export const MapComponent = ({setImages}: { setImages: React.Dispatch<React.SetStateAction<ImageOutput[]>> }) => {
   
     const fetchImages = async () => {
@@ -39,8 +39,7 @@ export const MapComponent = ({setImages}: { setImages: React.Dispatch<React.SetS
       click: () => {
         map.locate()
         const latlangBounds = map.getBounds();
-      },
-      
+      },  
       loading: () => {
         console.log("load");
         fetchImages();
@@ -63,26 +62,25 @@ export const MapComponent = ({setImages}: { setImages: React.Dispatch<React.SetS
     return null;
   }
 
+// メインコンポーネント
 const Map = () => {
     const [show, setShow] = useState(false);
     const [selectedImage, setSelectedImage] = useState<ImageOutput | null>(null);
     // 初期マップズームレベル
     const [zoom, setZoom] = useState<number>(13);
-    // const {location, error} = useGeoLocation();
     const [position, setPosition] = useState<LatLngTuple>([35.681236, 139.767125]);
 
     const [images, setImages] = useState<ImageOutput[]>([]);
     const {location, error} = useGeoLocation();
 
-    const handleReset = () =>{
-      setPosition([35.681236, 139.767125]);
-    }
+ 
 
     const handleSelect = async (imageId: string) => {
       const fetchedImage = await fetchSelectedImage(imageId);
       setSelectedImage(fetchedImage);
     }
 
+    // 初期位置の更新
     useEffect(() => {
         if (navigator.geolocation) {
             console.log("location found");
@@ -99,18 +97,24 @@ const Map = () => {
         <div className="w-full h-screen z-0">
             <MapContainer key={`${location.latitude}`} center={[location.latitude, location.longitude]} zoom={zoom} className="w-full h-full z-0">
                 
+                {/* 地図へのインタラクションなどを定義 */}
                 <MapComponent setImages={setImages}/>
+
+                {/* 地図のタイルレイヤー */}
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                   />
-        
+
+                {/* 画像のアイコン表示 */}
                 {images.map((image: ImageOutput) => (
                   <ImageMarker key={image.id} image={image} setShow={setShow} handleSelectedImage={handleSelect}/>
                 ))}
-                  
-                  <UserMarker position={[location.latitude, location.longitude]} />
 
+                {/* ユーザーのアイコン表示 */}  
+                <UserMarker position={[location.latitude, location.longitude]} />
+
+                {/* モーダル: 画像がクリックされた際に表示 */}
                 <CommonModal
                     isOpen={show}
                     closeModal={() => setShow(false)}

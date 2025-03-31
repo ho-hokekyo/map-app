@@ -9,7 +9,7 @@ export const convertImageToPng = async (file: File): Promise<File> => {
         // メタデータ取得
         const metadata = await image.metadata();
     
-        // 幅が 1024px 超えたらリサイズ
+        // 幅が 1024px 超えたらリサイズする
         if (metadata.width && metadata.width > 1024) {
         image = image.resize({ width: 1024 });
         }

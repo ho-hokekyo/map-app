@@ -12,7 +12,8 @@ const UploadPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const router = useRouter();
-  // error as locationError
+
+
   const {location, error: locationError} = useGeoLocation();
   const [title, setTitle] = useState<string>("");
 
@@ -93,13 +94,13 @@ const UploadPage = () => {
       formData.append("latitude", location.latitude.toString());
       formData.append("longitude", location.longitude.toString());
       
-      const res = await fetch("/api/map/postMapImage", {
+      const res = fetch("/api/map/postMapImage2", {
         method: "POST",
         body: formData, // add location, title, session
       })
+      // const 
       router.push('/');
-      // 
-      
+
       setFiles([]);
       setPreview(null);
       // alert('ファイルアップロード成功');

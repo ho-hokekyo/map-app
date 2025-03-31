@@ -19,7 +19,7 @@ export const fetchImages = async (): Promise<ImageOutput[]> => {
         // Validation
         const parsedValue = ImageOutputArraySchema.parse(data);
 
-        return data;
+        return parsedValue;
     }catch(error){
         console.log("Failed to fetch images", error);
         return [];

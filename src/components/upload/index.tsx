@@ -94,7 +94,7 @@ const UploadPage = () => {
       formData.append("latitude", location.latitude.toString());
       formData.append("longitude", location.longitude.toString());
       
-      const res = fetch("/api/map/postMapImage2", {
+      const res = fetch("/api/map/postMapImage", {
         method: "POST",
         body: formData, // add location, title, session
       })

@@ -6,9 +6,9 @@ import { fetchImages } from "@/components/gallery/action";
 const Gallery = async () => {
     const images = await fetchImages();
 
-
-    return (
+    return ( 
         <div className="p-4">
+        {/* 画像の一覧表示 */}
         <div className="grid grid-cols-3 gap-2">
           {images.map((image: ImageOutput) => (
             <div

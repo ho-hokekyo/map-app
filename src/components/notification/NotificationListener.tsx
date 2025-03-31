@@ -8,22 +8,33 @@ import { useSession } from "next-auth/react";
 export const NotificationListener = () => {
     const {data: session, status} = useSession();
     const [userId, setUserId] = useState<string>("default");
-    useEffect(() =>{
-        if(session?.user?.id){
-            console.log("session", session)
-            setUserId(session.user.id);
-        }
-    }, [session])
-    
+
     const {socket, connectSocket, disconnectSocket} = useSocket(userId);
     const showToast = useToast();
 
+
+    useEffect(() =>{
+        if(session?.user?.id){
+            // console.log("session", session)
+            setUserId(session.user.id);
+        }
+        
+    }, [session])
+    
     // 接続管理: 特定の処理の間だけ接続を確立したい場合はその状態を使用する. デフォルトは常に通信を確立する
     useEffect(() => {
         if (!socket){
             connectSocket();
         }
     },[socket, connectSocket])
+
+
+    useEffect(() => {
+        if(socket){
+            disconnectSocket();
+        }
+        connectSocket();
+    }, [userId]) 
 
 
 

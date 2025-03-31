@@ -9,7 +9,7 @@ export class ImageProcessorPipeline implements ProcessorPipeline{
     }
 
     async execute(buffer: Buffer): Promise<Buffer>{
-        for (const processor of this.processors) { // processors.revers()?
+        for (const processor of this.processors) {
             buffer = await processor.process(buffer);
         }
         return buffer;

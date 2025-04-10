@@ -1,15 +1,12 @@
 // image upload page
-"use client";
+'use client';
 
 // import { useState } from "react";
 // import { useRouter } from "next/router";
-import UploadPage from "@/components/upload/index";
-
+import UploadPage from '@/components/upload/index';
 
 const Page = () => {
-    return (
-        <UploadPage />
-    )
-}
+    return <UploadPage />;
+};
 
 export default Page;

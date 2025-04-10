@@ -9,7 +9,6 @@
 // import {Image} from "@/schema/modelSchema/ImageSchema";
 // import {convertImageToPng} from "@/lib/image/preprocess";
 
-
 // export async function POST(request: NextRequest) {
 
 //     try{
@@ -28,8 +27,7 @@
 //         console.log("longitude", longitude);
 //         console.log("title", title);
 
-        
-//         // generate unique filename 
+//         // generate unique filename
 //         const fileName = uuidv4();
 
 //         // 元画像ファイルの保存
@@ -69,9 +67,7 @@
 
 //             blobStream.end(bufferGenerated);
 //         })
-        
-        
-        
+
 //         // ファイル名をもとにGCSの署名付きURlを取得
 //         const SignedOriginalImageUrlResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image/getGCS`, {
 //             method: "POST",
@@ -93,7 +89,6 @@
 //         const {url: generatedImageUrl} = await SignedGeneratedImageUrlResponse.json();
 //         console.log("generatedImageUrl", generatedImageUrl);
 
-
 //         // セッションの取得
 //         const session = await getServerSession();
 //         if (!session || !session.user || !session.user.email) {
@@ -113,11 +108,9 @@
 
 //         console.log("user", user);
 
-        
-
 //         // データの保存
 //         const image:Image = await prisma.image.create({
-//             data:{    
+//             data:{
 //                 userId: user.id,
 //                 expiration: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
 //                 latitude: latitude,
@@ -132,14 +125,12 @@
 //         })
 //         console.log("image(database)", image);
 
-
 //         // 処理完了の通知
 //         if(!global.io){
 //             throw new Error("Custom Server for notification (Socket.io) is not initialized");
 //         }
 //         global.io.to(session.user.id).emit("success notification");
 //         global.io.emit("new post was created", {imageId: image.id});
-        
 
 //         return NextResponse.json(image, {status: 200});
 //     }catch(error){
@@ -152,4 +143,3 @@
 //         }
 //     }
 // }
-

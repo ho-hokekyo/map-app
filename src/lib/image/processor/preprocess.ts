@@ -1,5 +1,5 @@
-import sharp from "sharp";
-import { ImageProcessor } from "@/lib//image/interface";
+import sharp from 'sharp';
+import { ImageProcessor } from '@/lib//image/interface';
 
 export class ResizeImageProcessor implements ImageProcessor {
     private maxWidth: number;
@@ -9,18 +9,17 @@ export class ResizeImageProcessor implements ImageProcessor {
     }
 
     async process(buffer: Buffer): Promise<Buffer> {
-
-        const image = sharp(buffer)
+        const image = sharp(buffer);
         const metadata = await image.metadata();
 
         if (metadata.width && metadata.width > this.maxWidth) {
-            const newImage = image.resize({width: this.maxWidth});
+            const newImage = image.resize({ width: this.maxWidth });
             const newBuffer = await newImage.toBuffer();
             return sharp(buffer).jpeg({ quality: 80 }).toBuffer();
-        }
-        else{
+        } else {
             return buffer;
-        }}
+        }
+    }
 }
 
 export class ConvertToPngProcessor implements ImageProcessor {
@@ -32,12 +31,11 @@ export class ConvertToPngProcessor implements ImageProcessor {
 export class CompressImageProcessor implements ImageProcessor {
     private quality: number;
 
-    constructor(quality: number = 80){
+    constructor(quality: number = 80) {
         this.quality = quality;
     }
 
     async process(buffer: Buffer): Promise<Buffer> {
-        
         if (buffer.length > 4 * 1024 * 1024) {
             let quality = this.quality;
             let newBuffer = buffer;
@@ -46,9 +44,8 @@ export class CompressImageProcessor implements ImageProcessor {
                 newBuffer = await sharp(buffer).jpeg({ quality }).toBuffer();
             }
             return newBuffer;
-        }else{
+        } else {
             return buffer;
         }
     }
 }
-

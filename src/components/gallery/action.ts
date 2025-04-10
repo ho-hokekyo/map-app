@@ -1,18 +1,17 @@
-import { ImageOutput } from "@/schema/outputTypeSchema/ImageOutputSchema";
-import { ImageOutputArraySchema } from "@/schema/outputTypeSchema/ImageOutputSchema";
+import { ImageOutput } from '@/schema/outputTypeSchema/ImageOutputSchema';
+import { ImageOutputArraySchema } from '@/schema/outputTypeSchema/ImageOutputSchema';
 
 export const fetchImages = async (): Promise<ImageOutput[]> => {
-
-    try{
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image/getImages`,{
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/image/getImages`, {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-            num: 30,
+                num: 30,
             }),
-        })
+        });
 
         const data = await res.json();
 
@@ -20,11 +19,11 @@ export const fetchImages = async (): Promise<ImageOutput[]> => {
         const parsedValue = ImageOutputArraySchema.parse(data);
 
         return parsedValue;
-    }catch(error){
-        console.log("Failed to fetch images", error);
+    } catch (error) {
+        console.log('Failed to fetch images', error);
         return [];
     }
-}
+};
 
 // export const fetchPopularImages = async (): Promise<ImageOutput[]> => {
 

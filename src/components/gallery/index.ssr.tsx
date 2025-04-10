@@ -1,33 +1,33 @@
-import { ImageWrapper } from "@/components/gallery/ImageWrapper";
-import { ImageOutput } from "@/schema/outputTypeSchema/ImageOutputSchema";
-import { LikeIcon } from "@/components/Icon/LikeIcon";
+import { ImageWrapper } from '@/components/gallery/ImageWrapper';
+import { ImageOutput } from '@/schema/outputTypeSchema/ImageOutputSchema';
+import { LikeIcon } from '@/components/Icon/LikeIcon';
 
-import { fetchImages } from "@/components/gallery/action";
+import { fetchImages } from '@/components/gallery/action';
 const Gallery = async () => {
     const images = await fetchImages();
 
-    return ( 
+    return (
         <div className="p-4">
-        {/* 画像の一覧表示 */}
-        <div className="grid grid-cols-3 gap-2">
-          {images.map((image: ImageOutput) => (
-            <div
-              key={image.id}
-              className="relative cursor-pointer"
-            //   onClick={() => {}}
-            >
-              <ImageWrapper src={image.generatedUrl} />
-              <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                <div className="flex items-center text-white text-lg font-semibold">
-                  <LikeIcon className="w-6 h-6 mr-2" />
-                  {/* {image.} */}
-                </div>
-              </div>
+            {/* 画像の一覧表示 */}
+            <div className="grid grid-cols-3 gap-2">
+                {images.map((image: ImageOutput) => (
+                    <div
+                        key={image.id}
+                        className="relative cursor-pointer"
+                        //   onClick={() => {}}
+                    >
+                        <ImageWrapper src={image.generatedUrl} />
+                        <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                            <div className="flex items-center text-white text-lg font-semibold">
+                                <LikeIcon className="w-6 h-6 mr-2" />
+                                {/* {image.} */}
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
-          ))}
-        </div>
-  
-        {/* 詳細ビュー
+
+            {/* 詳細ビュー
         <AnimatePresence>
           {selectedImage && (
             <motion.div
@@ -61,9 +61,8 @@ const Gallery = async () => {
             </motion.div>
           )}
         </AnimatePresence> */}
-      </div>
-    )
-
-}
+        </div>
+    );
+};
 
 export default Gallery;

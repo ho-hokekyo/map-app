@@ -1,25 +1,35 @@
-import { useEffect, useState } from "react";
-import { CloseIcon } from "../Icon/CloseIcon";
+import { useEffect, useState } from 'react';
+import { CloseIcon } from '../Icon/CloseIcon';
 
-
-export const NotificationToast = ({text, duration, onClose}: {text:string; duration:number; onClose:() => void}) => {
-    const [progress, setProgress] = useState("100%");
+export const NotificationToast = ({
+    text,
+    duration,
+    onClose,
+}: {
+    text: string;
+    duration: number;
+    onClose: () => void;
+}) => {
+    const [progress, setProgress] = useState('100%');
 
     useEffect(() => {
         setTimeout(() => {
-        onClose();
+            onClose();
         }, duration);
 
         // 進捗バーのアニメーション開始
         setTimeout(() => {
-        setProgress("0%");
+            setProgress('0%');
         }, 10);
     }, [duration, onClose]);
 
     return (
         <div className="w-full max-w-xs mx-auto">
-
-            <div id="toast-default" className="flex items-center p-4 bg-white rounded-lg shadow-sm" role="alert">
+            <div
+                id="toast-default"
+                className="flex items-center p-4 bg-white rounded-lg shadow-sm"
+                role="alert"
+            >
                 {/* icon */}
                 {/* <div className="inline-flex items-center justify-center shrink-0 w-8 h-8 text-blue-200 bg-blue-100 rounded-lg dark:bg-blue-800 dark:text-blue-200">
                     <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
@@ -32,7 +42,13 @@ export const NotificationToast = ({text, duration, onClose}: {text:string; durat
                 <div className="ms-3 text-sm font-normal text-black">{text}</div>
 
                 {/* Close button */}
-                <button type="button" className="ms-auto -mx-1.5 -my-1.5 text-gray-300 transition hover:text-gray-500 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-300 hover:scale-105 inline-flex items-center justify-center h-8 w-8" data-dismiss-target="#toast-default" aria-label="Close" onClick={onClose}>
+                <button
+                    type="button"
+                    className="ms-auto -mx-1.5 -my-1.5 text-gray-300 transition hover:text-gray-500 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-300 hover:scale-105 inline-flex items-center justify-center h-8 w-8"
+                    data-dismiss-target="#toast-default"
+                    aria-label="Close"
+                    onClick={onClose}
+                >
                     <span className="sr-only">Close</span>
                     {/* <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -40,13 +56,14 @@ export const NotificationToast = ({text, duration, onClose}: {text:string; durat
                     <CloseIcon />
                 </button>
             </div>
-            
+
             {/* indicator */}
             <div className="relative h-0.5 rounded-full">
-                <div className="absolute top-0 left-0 h-full bg-violet-400 transition-all ease-linear" style={{ width: progress, transitionDuration: `${duration}ms` }} />
+                <div
+                    className="absolute top-0 left-0 h-full bg-violet-400 transition-all ease-linear"
+                    style={{ width: progress, transitionDuration: `${duration}ms` }}
+                />
             </div>
-    
         </div>
-    )
-}
-
+    );
+};

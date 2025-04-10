@@ -5,11 +5,11 @@ import { z } from 'zod';
 /////////////////////////////////////////
 
 export const VerificationTokenSchema = z.object({
-  identifier: z.string(),
-  token: z.string(),
-  expires: z.coerce.date(),
-})
+    identifier: z.string(),
+    token: z.string(),
+    expires: z.coerce.date(),
+});
 
-export type VerificationToken = z.infer<typeof VerificationTokenSchema>
+export type VerificationToken = z.infer<typeof VerificationTokenSchema>;
 
 export default VerificationTokenSchema;

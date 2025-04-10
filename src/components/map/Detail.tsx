@@ -19,18 +19,20 @@ import { ImageOutput } from '@/schema/outputTypeSchema/ImageOutputSchema';
 //     // replies:
 // }
 
-const Detail = ({image}: {image: ImageOutput}) => {
-
-    const handleClickLike = (id: string) => {
-    }
-    const handleClickShare = (id: string) => {
-
-    }
+const Detail = ({ image }: { image: ImageOutput }) => {
+    const handleClickLike = (id: string) => {};
+    const handleClickShare = (id: string) => {};
     return (
         <>
             <div className="w-full md:flex px-2">
                 <div className="">
-                    <Image src={image.generatedUrl} alt="Map" layout="responsive" width={1000} height={1000}/>
+                    <Image
+                        src={image.generatedUrl}
+                        alt="Map"
+                        layout="responsive"
+                        width={1000}
+                        height={1000}
+                    />
 
                     <div className="flex justify-end space-x-4 mt-4">
                         <button
@@ -45,7 +47,7 @@ const Detail = ({image}: {image: ImageOutput}) => {
                             className="px-6 py-2 rounded-full transform transition-transform hover:scale-105 flex items-center"
                             onClick={() => handleClickShare(image.id)}
                         >
-                            <FShare className="mr-2"/>
+                            <FShare className="mr-2" />
                             {/* <LikeIcon/> */}
                             Share
                         </button>
@@ -65,7 +67,9 @@ const Detail = ({image}: {image: ImageOutput}) => {
                         </li>
                     </ul> */}
                     <div>
-                        <p className="mt-4">{`${image.latitude}, ${image.longitude}`.slice(0, 30)}</p>
+                        <p className="mt-4">
+                            {`${image.latitude}, ${image.longitude}`.slice(0, 30)}
+                        </p>
                     </div>
                     <div>
                         <p className="mt-4">{image.created_at.toString()}</p>
@@ -74,7 +78,9 @@ const Detail = ({image}: {image: ImageOutput}) => {
                         <ul className="mt-2 list-none list-inside">
                             <li className="mt-2">
                                 <p className="">created by UserName</p>
-                                <p className="w-full text-sm break-words ml-4">{image.description}</p>
+                                <p className="w-full text-sm break-words ml-4">
+                                    {image.description}
+                                </p>
                             </li>
                             {/* <ul className="ml-4 list-none list-inside mt-2">
                                 <li id="more-replies" className="hidden mt-2">

@@ -1,11 +1,10 @@
-
 type SimpleMapProps = {
     location: {
         latitude: number;
         longitude: number;
     };
     error: string | null;
-}
+};
 
 const SimpleMap = ({ location }: SimpleMapProps) => {
     return (

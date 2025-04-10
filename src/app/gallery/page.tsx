@@ -1,4 +1,4 @@
-import Garrally from "@/components/gallery/index.ssr";
+import Garrally from '@/components/gallery/index.ssr';
 
 const Page = () => {
     return (

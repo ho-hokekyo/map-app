@@ -5,8 +5,7 @@ import Header from '@/components/layouts/Header';
 import Footer from '@/components/layouts/Footer';
 import ToGenerate from '@/components/layouts/ToGenerate';
 
-
-import {NotificationListener} from "@/components/notification/NotificationListener";
+import { NotificationListener } from '@/components/notification/NotificationListener';
 import { ProviderWrapper } from '@/components/common/ProviderWrapper';
 
 const geistSans = Geist({
@@ -33,7 +32,6 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 {/* <Header></Header> */}
-            
 
                 {children}
                 <ProviderWrapper>
@@ -41,12 +39,9 @@ export default function RootLayout({
                         <NotificationListener />
                     </div>
                 </ProviderWrapper>
-                
-            <Footer></Footer>
-                <ToGenerate></ToGenerate>
-           
 
-               
+                <Footer></Footer>
+                <ToGenerate></ToGenerate>
             </body>
         </html>
     );

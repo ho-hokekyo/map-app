@@ -5,12 +5,12 @@ import { z } from 'zod';
 /////////////////////////////////////////
 
 export const SessionSchema = z.object({
-  id: z.string().cuid(),
-  sessionToken: z.string(),
-  userId: z.string(),
-  expires: z.coerce.date(),
-})
+    id: z.string().cuid(),
+    sessionToken: z.string(),
+    userId: z.string(),
+    expires: z.coerce.date(),
+});
 
-export type Session = z.infer<typeof SessionSchema>
+export type Session = z.infer<typeof SessionSchema>;
 
 export default SessionSchema;

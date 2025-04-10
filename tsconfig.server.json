@@ -1,14 +1,14 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-      "module": "commonjs",
-      "noEmit": false,
-      "target": "ES2017",
-      "moduleResolution": "node",
-      "isolatedModules": false,
-      "esModuleInterop": true,
-      "strict": true,
-      "outDir": "dist"
+        "module": "commonjs",
+        "noEmit": false,
+        "target": "ES2017",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "esModuleInterop": true,
+        "strict": true,
+        "outDir": "dist"
     },
     "include": ["server.ts"]
-  }
+}

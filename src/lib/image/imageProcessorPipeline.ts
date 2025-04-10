@@ -8,9 +8,10 @@ export class ImageProcessorPipeline implements ProcessorPipeline {
     }
 
     async execute(buffer: Buffer): Promise<Buffer> {
+        let output = Buffer.from(buffer) as Buffer;
         for (const processor of this.processors) {
-            buffer = await processor.process(buffer);
+            output = await processor.process(buffer);
         }
-        return buffer;
+        return output;
     }
 }
